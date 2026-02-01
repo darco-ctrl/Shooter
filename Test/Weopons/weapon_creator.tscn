@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bghdugrnpjnhx"]
+
+[ext_resource type="Script" uid="uid://fgfh33524e66" path="res://world/player/Player.cs" id="1_g1lua"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tbtb6"]
+size = Vector3(0.1, 0.1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7y05k"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yynsy"]
+
+[node name="WeaponCreator" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3314663, 0.23685575, -0.1822747)
+mesh = SubResource("BoxMesh_tbtb6")
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Head", "Camera")]
+script = ExtResource("1_g1lua")
+Head = NodePath("Head")
+Camera = NodePath("Head/Camera3D")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_7y05k")
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_yynsy")
+
+[node name="Head" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010540485, 0, 0)
